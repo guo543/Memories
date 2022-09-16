@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 
 export const signin = async (req, res) => {
+    console.log('signin');
+
     const { email, password } = req.body;
 
     try {
@@ -24,12 +26,14 @@ export const signin = async (req, res) => {
 }
 
 export const signup = async (req, res) => {
+    console.log('signup');
+
     const { email, password, confirmPassword, firstName, lastName } = req.body;
 
     try {
         const existingUser = await User.findOne({ email });
 
-        if (!existingUser) return res.status(400).json({ message: "User already exist." });
+        if (existingUser) return res.status(400).json({ message: "User already exist." });
 
         if (password !== confirmPassword) return res.status(400).json({ message: "Passwords don't match." });
 

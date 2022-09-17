@@ -27,8 +27,8 @@ const Home = () => {
     const [tags, setTags] = useState([]);
 
     useEffect(() => {
-        dispatch(getPosts());
-    }, [currentId, dispatch]);
+        dispatch(getPosts(page));
+    }, [dispatch]);
 
     const searchPost = () => {
         if (search.trim() || tags) {
@@ -82,9 +82,11 @@ const Home = () => {
                             <Button onClick={searchPost} className={classes.appBarSearch} variant="contained" color="primary">Search</Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        <Paper elevation={6}>
-                            <Pagination page={page} />
-                        </Paper>
+                        {(!searchQuery && !tags.length) && (
+                            <Paper elevation={6} className={classes.pagination}>
+                                <Pagination page={page} />
+                            </Paper>
+                        )}
                     </Grid>
                 </Grid>
             </Container>

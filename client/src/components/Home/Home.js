@@ -28,7 +28,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getPosts(page));
-    }, [dispatch]);
+    }, [dispatch, page]);
 
     const searchPost = () => {
         if (search.trim() || tags) {
